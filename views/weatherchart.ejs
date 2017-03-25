@@ -1,0 +1,29 @@
+<% include header %>
+
+<!-- Main Container -->
+<div class="container">
+	
+	<center>	
+			<h1>Graph charts</h1>
+		</center>
+		<!-- needed for graph the div is where the bootstrap css goes-->
+		<div >
+			<center>
+				<div id="weather_chart" style="width: 100%; height: 300px;"></div>
+			</center>
+		</div>
+		<div>
+			<center>
+				<div id="precip_chart" style="width: 100%; height: 300px;"></div>
+			</center>
+		</div>
+		<!-- end -->
+		<!-- Scripts needed for the graph.js page -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.16.0/moment.min.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.15.0/lodash.min.js"></script>
+		<script type="text/javascript" src="asset/js/graph.js"></script>
+</div> <!-- /container -->
+
+<% include footer %>

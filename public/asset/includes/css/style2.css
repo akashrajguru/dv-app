@@ -1,0 +1,126 @@
+
+
+
+
+#section ul{
+    display: block;
+    list-style-type: none;
+}
+
+#section
+{
+  left: 24%;
+  right:24%;
+  font-family:Vardana, Arial, Helvetica, sans-serif;
+  font-size: 10.2em%;
+  width: 790px;
+  background-color: white;
+  margin: 15px auto;
+  padding: 10px 5px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-weight: 300;  
+  overflow: hidden;
+  text-align: left;
+}
+
+
+
+
+.product-single__price {
+    color: #f45b4f;
+    font-size: 24.4px;
+    font-weight: 500;
+}
+#section span{
+  margin: 0 0 15px;
+}
+#section label{
+    display: block;
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+
+#section select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-position: right center;
+    background-image: url("//cdn.shopify.com/s/files/1/1383/6427/t/1/assets/ico-select.svg?11566239925538738549");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-color: #fff !important;
+    padding-right: 28px;
+    text-indent: 0.01px;
+    text-overflow: '';
+    cursor: pointer;
+}
+
+#section select {
+    border: 1px solid #ddd;
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    margin: 0 0 1em;
+    color: #333 !important;
+}
+
+#section input, select, textarea {
+    padding: 8px 10px;
+    line-height: 1.42;
+}
+
+#section select, input {
+    font-size: 1em;
+}
+
+#section h1{
+  margin: 0 0 15px;
+  color: black;
+}
+
+#section p{
+  color: black;
+}
+
+#img001{
+  width: 350px;
+  height: 450px;
+}
+.btn-addTocart{
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0;
+    font-size: 1em;
+    font-family: "HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.42;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 2px;
+    background-color: #f45b4f;
+    color: #fff;
+    -webkit-transition: background-color 0.1s ease-in;
+    -moz-transition: background-color 0.1s ease-in;
+    -ms-transition: background-color 0.1s ease-in;
+    -o-transition: background-color 0.1s ease-in;
+    transition: background-color 0.1s ease-in;
+}
+
+.product-single__quantity {
+    margin-bottom: 15px;
+}
+
+

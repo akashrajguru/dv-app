@@ -1,0 +1,9 @@
+#node modules
+node_modules
+
+#logs
+logs/**
+npm-debug.log
+
+#config
+
