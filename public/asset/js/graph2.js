@@ -1,8 +1,6 @@
 // Wait until the body has loaded
 $(document).ready(function(){
 	console.log('js');
-	// Set up the charts page
-	//google.charts.load("current", {packages:['corechart']});
 	var days = 7, choice = '58c6bbc6c8f6041cb4ae0e7b';
 	setupCharts(days, choice);
 });
@@ -106,42 +104,57 @@ function setupCharts(days, choice){
 
 			var categories = [];
 			var series = [];
-
-			//graphArray.push(['Date', 'Humidity', 'Temperature', 'WindSpeed']);
-
-			// For each result sort the data into the google charts format ie ['String', numeric, numeric, numeric]
+			var Humidity = [];
+			var Temperature = [];
+			var WindSpeed = [];
+		
 			result.forEach(function(resultData){
-				// Create the empty array
-				var jsonObject = [];
-				var object1 = {};
-				
+		
+
 				categories.push(moment.unix(resultData.daily.data[0].time).format('dddd')+' '+moment.unix(resultData.daily.data[0].time).format('DD'));
 				// Push the humidity to the array
-				jsonObject.push(resultData.daily.data[0].humidity);
-				object1.name =resultData.daily.data[0].humidity;
+				Humidity.push(resultData.daily.data[0].humidity);
+
 				// Push todays temperature in degrees C
-				jsonObject.push(Math.round((((((resultData.daily.data[0].temperatureMax + resultData.daily.data[0].temperatureMin)/2)-32)/9)*5)));
+				Temperature.push(Math.round((((((resultData.daily.data[0].temperatureMax + resultData.daily.data[0].temperatureMin)/2)-32)/9)*5)));
 				// Push the windspeed
-				jsonObject.push(resultData.daily.data[0].windSpeed);
-				// Push this array to the graph arrays
-				graphArray.push(jsonObject);
-				// Push tdays day name and date and precipitation to the precip array
+				WindSpeed.push(resultData.daily.data[0].windSpeed);
 				
 			});
 			// Reverse the arrays so the dates go from the past up to present
 			graphArray.reverse();
 			categories.reverse();
-			// Prepend the tabs for graph naming conventions
-			graphArray.unshift(['Month', 'Humidity %', 'Temperature deg.C', 'WindSpeed Mph']);
+			Humidity.reverse();
+			Temperature.reverse();
+			WindSpeed.reverse();
+			
 			
 			// Draw the graphs
 
 
-			console.log('graphArray',graphArray);
+			//console.log('graphArray',graphArray);
 			console.log('categories',categories);
-			console.log('object',object1.name);
-			/*drawChart(graphArray);
-			drawPrecipChart(precipArray);*/
+			console.log('Humidity',Humidity);
+			console.log('Temperature',Temperature);
+			console.log('WindSpeed',WindSpeed);
+			var obj = { name: 'Humidity %',
+						data: Humidity
+					}
+			var obj1 = { name: 'Temperature deg.C',
+						data: Temperature
+					}
+			var obj2 = { name: 'WindSpeed Mph',
+						data: WindSpeed
+					}		
+
+			series.push(obj);
+			series.push(obj1);
+			series.push(obj2);
+
+			console.log('series',series);
+
+			drawChart(categories, series)
+
 		});
 	} 
 }
@@ -191,20 +204,15 @@ function aggregateWeatherData(dates, x, y, callback){
 
 function drawChart(categories, series)
 {
-    var chart = Highcharts.chart('container', {
+    var chart = Highcharts.chart('chart', {
 
     chart: {
         type: 'column'
     },
 
     title: {
-        text: 'Highcharts responsive chart'
+        text: 'Weather Rates vs. Dates'
     },
-
-    subtitle: {
-        text: 'Resize the frame or click buttons to change appearance'
-    },
-
     legend: {
         align: 'right',
         verticalAlign: 'middle',
@@ -212,7 +220,7 @@ function drawChart(categories, series)
     },
 
     xAxis: {
-        categories: ['Apples', 'Oranges', 'Bananas'],
+        categories: categories,
         labels: {
             x: -10
         }
@@ -221,20 +229,11 @@ function drawChart(categories, series)
     yAxis: {
         allowDecimals: false,
         title: {
-            text: 'Amount'
+            text: 'Weather Rates'
         }
     },
 
-    series: [{
-        name: 'Christmas Eve',
-        data: [1, 4, 3]
-    }, {
-        name: 'Christmas Day before dinner',
-        data: [6, 4, 2]
-    }, {
-        name: 'Christmas Day after dinner',
-        data: [8, 4, 3]
-    }],
+    series: series,
 
     responsive: {
         rules: [{
