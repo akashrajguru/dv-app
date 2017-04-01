@@ -112,19 +112,37 @@ function setupCharts(days, choice){
 			var Temperature = [];
 			var WindSpeed = [];
 		
-			var id;
+			var count = 0;
 			result.forEach(function(resultData){
-		
+				count++
+
 
 				categories.push(moment.unix(resultData.daily.data[0].time).format('dddd')+' '+moment.unix(resultData.daily.data[0].time).format('DD'));
 				// Push the humidity to the array
 				id = moment.unix(resultData.daily.data[0].time).format('dddd')+' '+moment.unix(resultData.daily.data[0].time).format('DD');
-				Humidity.push(resultData.daily.data[0].humidity);
+				var tobj1 = { name: moment.unix(resultData.daily.data[0].time).format('dddd')+' '+moment.unix(resultData.daily.data[0].time).format('DD'),
+							 y:	resultData.daily.data[0].humidity,
+							 drilldown:	'humidity'+moment.unix(resultData.daily.data[0].time).format('DD')	
+							}	
+
+				Humidity.push(tobj1);
 
 				// Push todays temperature in degrees C
-				Temperature.push(Math.round((((((resultData.daily.data[0].temperatureMax + resultData.daily.data[0].temperatureMin)/2)-32)/9)*5)));
+				//Temperature.push(Math.round((((((resultData.daily.data[0].temperatureMax + resultData.daily.data[0].temperatureMin)/2)-32)/9)*5)));
 				// Push the windspeed
-				WindSpeed.push(resultData.daily.data[0].windSpeed);
+				var tobj2 = { name: moment.unix(resultData.daily.data[0].time).format('dddd')+' '+moment.unix(resultData.daily.data[0].time).format('DD'),
+							 y:	resultData.daily.data[0].windSpeed,
+							 drilldown:	'windSpeed'+moment.unix(resultData.daily.data[0].time).format('DD')	
+							}
+
+				WindSpeed.push(tobj2);
+
+				var tobj = { name: moment.unix(resultData.daily.data[0].time).format('dddd')+' '+moment.unix(resultData.daily.data[0].time).format('DD'),
+							 y:	Math.round((((((resultData.daily.data[0].temperatureMax + resultData.daily.data[0].temperatureMin)/2)-32)/9)*5)),
+							 drilldown:	'temperature'+moment.unix(resultData.daily.data[0].time).format('DD')	
+
+							}
+				Temperature.push(tobj);
 				
 			});
 			// Reverse the arrays so the dates go from the past up to present
@@ -151,7 +169,7 @@ function setupCharts(days, choice){
 
 			//console.log('graphArray',graphArray);
 			//console.log('categories',categories);
-			//console.log('Humidity',Humidity);
+			console.log('Humidity',Humidity);
 			console.log('Temperature',Temperature);
 			//console.log('WindSpeed',WindSpeed);
 			var obj = { name: 'Humidity %',
@@ -167,6 +185,7 @@ function setupCharts(days, choice){
 			series.push(obj);
 			series.push(obj1);
 			series.push(obj2);
+			
 
 			console.log('series',series);
 
@@ -221,7 +240,11 @@ function aggregateWeatherData(dates, x, y, callback){
 
 function drawChart(categories, series)
 {
-    var chart = Highcharts.chart('chart', {
+
+	$.get('/hourly.json', function(body){
+			console.log('json data :', body);
+	});
+    /*var chart = Highcharts.chart('chart', {
 
     chart: {
         type: 'column'
@@ -251,7 +274,21 @@ function drawChart(categories, series)
     },
 
     series: series,
-
+     drilldown: {
+        series: [{
+            id: 'Tuesday 28',
+            data: [
+                ['0', 5],
+                ['300', 6],
+                ['600', 7],
+                ['900', 9],
+                ['1200', 14]
+                ['1500', 12],
+                ['1800', 11],
+                ['2100', 9]
+            ]
+        }  ]
+    },
     responsive: {
         rules: [{
             condition: {
@@ -283,8 +320,78 @@ function drawChart(categories, series)
         }]
     }
 });
+*/
 
+var chart = Highcharts.chart('chart', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Basic drilldown'
+    },
+    xAxis: {
+        type: 'category'
+    },
 
+    legend: {
+        enabled: false
+    },
+
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+
+    series: series,
+    drilldown: {
+        series: [{
+            id: 'temperature28',
+            name: 'Temperature deg.C',
+            data: [
+                ['0', 5],
+                ['300', 6],
+                ['600', 7],
+                ['900', 9],
+                ['1200', 14],
+                ['1500', 12],
+                ['1800', 11],
+                ['2100', 9]
+            ]
+        },{
+        	id: 'windSpeed28',
+        	name: 'WindSpeed Mph',
+            data: [
+                ['0', 13],
+                ['300', 15],
+                ['600', 15],
+                ['900', 12],
+                ['1200', 25],
+                ['1500', 22],
+                ['1800', 14],
+                ['2100', 14]
+            ]
+
+        },{
+        	id: 'humidity28',
+        	name: 'Humidity %',
+            data: [
+                ['0', 0.96],
+                ['300', 0.93],
+                ['600', 0.98],
+                ['900', 0.94],
+                ['1200', 0.81],
+                ['1500', 0.87],
+                ['1800', 0.91],
+                ['2100', 0.97]
+            ]
+
+        }],
+    }
+});
 
 
 }

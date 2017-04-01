@@ -1,0 +1,24 @@
+{ series: [{
+            id: 'Tuesday28',
+            data: [
+                ['Cats', 4],
+                ['Dogs', 2],
+                ['Cows', 1],
+                ['Sheep', 2],
+                ['Pigs', 1]
+            ]
+        }, {
+            id: 'fruits',
+            data: [
+                ['Apples', 4],
+                ['Oranges', 2]
+            ]
+        }, {
+            id: 'cars',
+            data: [
+                ['Toyota', 4],
+                ['Opel', 2],
+                ['Volkswagen', 2]
+            ]
+        }]
+}
