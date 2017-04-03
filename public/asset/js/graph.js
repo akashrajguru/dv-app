@@ -105,7 +105,7 @@ function setupCharts(days, choice){
 			var graphArray = [];
 			var precipArray= [];
 			//graphArray.push(['Date', 'Humidity', 'Temperature', 'WindSpeed']);
-
+			console.log('result ',result);
 			// For each result sort the data into the google charts format ie ['String', numeric, numeric, numeric]
 			result.forEach(function(resultData){
 				// Create the empty array
@@ -329,6 +329,7 @@ function drawChart(graphArray){
 }
 
 function drawPrecipChart(precipArray){
+	console.log('precipArray', precipArray)
 	var data = google.visualization.arrayToDataTable(precipArray);
 	var options = {
         title: "Precipation vs. Dates",
